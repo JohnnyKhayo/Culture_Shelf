@@ -26,11 +26,65 @@ const [cultures, setCultures] = useState([
   }
     ]);
 
+    const [formData, setFormData] = useState({
+        name: "",
+        scientificName: "",
+    habitat: "",
+    role: ""
+    })
+
+      function handleChange(event) {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const newCulture = {
+      id: Date.now(),
+      name: formData.name,
+      scientificName: formData.scientificName,
+      habitat: formData.habitat,
+      role: formData.role
+    };
+
+    setCultures(prev => [...prev, newCulture]);
+
+    setFormData({
+      name: "",
+      scientificName: "",
+      habitat: "",
+      role: ""
+    });
+  }
+
+
     function handleDelete(id)
 {setCultures(prev => prev.filter(culture => culture.id !==id));}    
   return (
     <>
     <section>
+              <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Name"
+        />
+        <input type="text" name="scientificName" value={formData.scientificName} onChange={handleChange} placeholder="Scientific name"
+        />
+        <input type="text" name="habitat" value={formData.habitat} onChange={handleChange} placeholder="Where it lives"
+        />
+        <input
+          type="text" name="role" value={formData.role} onChange={handleChange} placeholder="What it does"
+        />
+        <button type="submit">Add to shelf</button>
+      </form>
+
     {cultures.map(culture => (
         <CultureCard
           key={culture.id}
