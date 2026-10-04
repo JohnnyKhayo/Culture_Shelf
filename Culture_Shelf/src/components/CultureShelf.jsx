@@ -6,10 +6,19 @@ const [cultures, setCultures] = useState([
 {
     id: 1,
     name: "Yogurt bacteria",
-    scientificName: "Lctobacillus",
+    scientificName: "Lactobacillus",
     habitat: "yogurt and the gut",
     role: "Turns milk into yogurt"
 },
+    
+{
+     id: 2,
+     name: "Baker's yeast",
+     scientificName: "Saccharomyces cerevisiae",
+     habitat: "dough and fruit skins",
+     role: "Makes bread rise"
+},
+
 {
     id: 3,
     name: "Lab strain K-12",
@@ -32,6 +41,8 @@ const [cultures, setCultures] = useState([
     habitat: "",
     role: ""
     })
+
+    const [query, setQuery] = useState("");
 
       function handleChange(event) {
     setFormData({
@@ -62,9 +73,25 @@ const [cultures, setCultures] = useState([
   }
 
 
-    function handleDelete(id)
-{setCultures(prev => prev.filter(culture => culture.id !==id));}    
-  return (
+    function handleDelete(id){
+        setCultures(prev => prev.filter(culture => culture.id !==id));
+    }    
+  
+  function handleSearch(event) {
+    setQuery(event.target.value);
+  }
+
+  const filtered = cultures.filter(culture => {
+    const text = query.toLowerCase();
+    return (
+      culture.name.toLowerCase().includes(text) ||
+      culture.scientificName.toLowerCase().includes(text) ||
+      culture.habitat.toLowerCase().includes(text) ||
+      culture.role.toLowerCase().includes(text)
+    );
+  });
+
+return (
     <>
     <section>
               <form onSubmit={handleSubmit}>
@@ -85,7 +112,14 @@ const [cultures, setCultures] = useState([
         <button type="submit">Add to shelf</button>
       </form>
 
-    {cultures.map(culture => (
+      <input
+       type="text" value={query} onChange={handleSearch} placeholder="Try yogurt or yeast"
+/>
+
+            {filtered.length === 0 && <p>Nothing on the shelf matches that.</p>}
+
+
+    {filtered.map(culture => (
         <CultureCard
           key={culture.id}
           culture={culture}
