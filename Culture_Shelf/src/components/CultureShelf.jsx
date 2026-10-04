@@ -93,32 +93,37 @@ const [cultures, setCultures] = useState([
 
 return (
     <>
-    <section>
-              <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Name"
+
+  <section className='p-6'>
+
+    <input
+       type="text" value={query} onChange={handleSearch} placeholder="Try yogurt or yeast"
+     className='border rounded px-3 py-2 mb-4 w-full max-w-md'/>
+
+        <form onSubmit={handleSubmit} className='flex flex-wrap gap-2 mb-6'>
+
+        <input className='border rounded px-3 py-2'
+         type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name"
         />
-        <input type="text" name="scientificName" value={formData.scientificName} onChange={handleChange} placeholder="Scientific name"
+
+        <input className='border rounded px-3 py-2'
+         type="text" name="scientificName" value={formData.scientificName} onChange={handleChange} placeholder="Scientific name"
         />
-        <input type="text" name="habitat" value={formData.habitat} onChange={handleChange} placeholder="Where it lives"
+
+        <input className='border rounded px-3 py-2' 
+        type="text" name="habitat" value={formData.habitat} onChange={handleChange} placeholder="Where it lives"
         />
-        <input
+        <input className='border rounded px-3 py-2'
           type="text" name="role" value={formData.role} onChange={handleChange} placeholder="What it does"
         />
-        <button type="submit">Add to shelf</button>
+        <button type="submit" className='bg-green-700 text-white px-4 py-2 rounded'>Add to shelf</button>
       </form>
 
-      <input
-       type="text" value={query} onChange={handleSearch} placeholder="Try yogurt or yeast"
-/>
+    
 
             {filtered.length === 0 && <p>Nothing on the shelf matches that.</p>}
 
-
+    <div className='flex flex-wrap'>
     {filtered.map(culture => (
         <CultureCard
           key={culture.id}
@@ -126,7 +131,7 @@ return (
           onDelete={handleDelete}
         />
       ))}
-
+    </div>
     </section>
     </>
   );
