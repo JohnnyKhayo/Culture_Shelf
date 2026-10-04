@@ -1,8 +1,8 @@
-import React from 'react'
+import {useState} from 'react';
 import CultureCard from './CultureCard'
 
 function CultureShelf() {
-const cultures = [
+const [cultures, setCultures] = useState([
 {
     id: 1,
     name: "Yogurt bacteria",
@@ -24,8 +24,10 @@ const cultures = [
     habitat: "damp bread",
     role: "Breaks down leftovers"
   }
-    ];
-    
+    ]);
+
+    function handleDelete(id)
+{setCultures(prev => prev.filter(culture => culture.id !==id));}    
   return (
     <>
     <section>
@@ -33,7 +35,7 @@ const cultures = [
         <CultureCard
           key={culture.id}
           culture={culture}
-          onDelete={() => {}}
+          onDelete={handleDelete}
         />
       ))}
 
