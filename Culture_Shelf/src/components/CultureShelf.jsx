@@ -7,6 +7,7 @@ const [cultures, setCultures] = useState([
     id: 1,
     name: "Yogurt bacteria",
     scientificName: "Lactobacillus",
+    image: "images/Bacillus_Bacteria,_SEM.jpg",
     habitat: "yogurt and the gut",
     role: "Turns milk into yogurt"
 },
@@ -15,6 +16,7 @@ const [cultures, setCultures] = useState([
      id: 2,
      name: "Baker's yeast",
      scientificName: "Saccharomyces cerevisiae",
+     image: "images/yeast.jpg",
      habitat: "dough and fruit skins",
      role: "Makes bread rise"
 },
@@ -23,6 +25,7 @@ const [cultures, setCultures] = useState([
     id: 3,
     name: "Lab strain K-12",
     scientificName: "Escherichia coli",
+    image: "images/e.coli.jpg",
     habitat: "research labs",
     role: "Harmless teaching strain"
   },
@@ -30,14 +33,15 @@ const [cultures, setCultures] = useState([
     id: 4,
     name: "Bread mold",
     scientificName: "Rhizopus",
+    image: "images/rhizopus.jpg",
     habitat: "damp bread",
     role: "Breaks down leftovers"
   }
     ]);
 
     const [formData, setFormData] = useState({
-        name: "",
-        scientificName: "",
+    name: "",
+    scientificName: "",
     habitat: "",
     role: ""
     })
@@ -53,6 +57,9 @@ const [cultures, setCultures] = useState([
 
   function handleSubmit(event) {
     event.preventDefault();
+    if (formData.name.trim() === "") {
+  return;
+}
 
     const newCulture = {
       id: Date.now(),
